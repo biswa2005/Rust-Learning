@@ -13,14 +13,30 @@ fn main() {
 
     // If-Else Condition 
     // Turnary operators
-
     if _is_male && _is_age < 18 {
-        print!("\nYou are a male\n")
+        print!("\nYou are a male")
     }
     else if _is_male && _is_age >= 18 {
-        print!("\nYou are an adult male\n");
+        print!("\nYou are an adult male");
     }
     else{
-        print!("\nYou are a female\n");
+        print!("\nYou are a female");
     }
+
+    let sentence = String::from("Your name is Rup");
+    print!("\nFirst Word : {}\n", get_first_word(sentence))
+}
+
+// Functions
+fn get_first_word(sentence : String) -> String {
+    let mut ans = String::new();
+
+    // For Loop
+    for char in sentence.chars() {
+        ans.push(char);
+        if char == ' ' {
+            break;
+        }
+    }
+    return ans;
 }
