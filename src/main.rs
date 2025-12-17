@@ -1,9 +1,9 @@
 fn main() {
-    let _x: i32 = -32; // signed int
-    let _y: u32 = 90; // unsigned int
-    let _z: f64 = -10000.8984; // float
+    let _x: i32 = -32; // Signed int
+    let _y: u32 = 90; // Unsigned int
+    let _z: f64 = -10000.8984; // Float
 
-    let _is_male: bool = true; // boolean
+    let _is_male: bool = true; // Boolean
     let _s: &str = "Rup"; // String
     let _is_age: i32 = 18;
 
