@@ -31,7 +31,7 @@ fn main() {
     println!("{}", word2);
     println!("{}", word1); // This can be done because word1 is passed through reference or the word2 borrow the value of word1 so the ownership of word1 is not changed ...
     // We can also do word1.clone() but that operation is expensive as it makes an additional pointer and points at a newly made word1 string in heap but in this case word2 makes an additional pointer but points as the same as word1 address in heap. 
-    
+
     // Structs
     struct User {
         username : String,
@@ -62,18 +62,19 @@ fn main() {
 
     println!("The area of rectangle is {} square pixels", rec1.area());
 
+    // Enums & Pattern Matching
     let circle = Shape :: Circle(4.5);
     let square = Shape :: Square(2.5);
     let rectangle_new = Shape :: RectangleNew(1.5, 2.0);
 
     let area1 = calc_area(circle);
-    println!("The area is {}", area1);
+    println!("The area of circle is {}", area1);
     
     let area2 = calc_area(square);
-    println!("The area is {}", area2);
+    println!("The area of square is {}", area2);
     
     let area3 = calc_area(rectangle_new);
-    println!("The area is {}", area3);
+    println!("The area of rectangle is {}", area3);
 
 }
 
@@ -90,7 +91,6 @@ fn main() {
     }
 
     // Enums & pattern matching
-
     enum Shape {
         Circle(f64),
         Square(f64),
