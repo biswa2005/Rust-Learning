@@ -1,3 +1,5 @@
+use std::fs;
+
 fn main() {
     let _x: i32 = -32; // Signed int
     let _y: u32 = 90; // Unsigned int
@@ -27,24 +29,24 @@ fn main() {
 
     // Borrowers & References
     let word1 = String::from("I Love Radha Krishna");
-    let word2  = get_first_word_new(&word1);
+    let word2 = get_first_word_new(&word1);
     println!("{}", word2);
     println!("{}", word1); // This can be done because word1 is passed through reference or the word2 borrow the value of word1 so the ownership of word1 is not changed ...
-    // We can also do word1.clone() but that operation is expensive as it makes an additional pointer and points at a newly made word1 string in heap but in this case word2 makes an additional pointer but points as the same as word1 address in heap. 
+    // We can also do word1.clone() but that operation is expensive as it makes an additional pointer and points at a newly made word1 string in heap but in this case word2 makes an additional pointer but points as the same as word1 address in heap.
 
     // Structs
     struct User {
-        username : String,
-        email : String,
-        age : u32,
-        active : bool,
+        username: String,
+        email: String,
+        age: u32,
+        active: bool,
     }
 
     let user1 = User {
-        username : String::from("Biswarup Biswas"),
-        email : String::from("bbiswasrup2005@gmail.com"),
-        age : 20,
-        active : false,
+        username: String::from("Biswarup Biswas"),
+        email: String::from("bbiswasrup2005@gmail.com"),
+        age: 20,
+        active: false,
     };
 
     println!(
@@ -52,58 +54,82 @@ fn main() {
         user1.username,
         user1.age,
         user1.email,
-        if user1.active {""} else {"Not "},    
+        if user1.active { "" } else { "Not " },
     );
-    
-    let rec1 = Rectangle{
-        width : 40,
-        height : 30,
+
+    let rec1 = Rectangle {
+        width: 40,
+        height: 30,
     };
 
     println!("The area of rectangle is {} square pixels", rec1.area());
 
     // Enums & Pattern Matching
-    let circle = Shape :: Circle(4.5);
-    let square = Shape :: Square(2.5);
-    let rectangle_new = Shape :: RectangleNew(1.5, 2.0);
+    let circle = Shape::Circle(4.5);
+    let square = Shape::Square(2.5);
+    let rectangle_new = Shape::RectangleNew(1.5, 2.0);
 
     let area1 = calc_area(circle);
     println!("The area of circle is {}", area1);
-    
+
     let area2 = calc_area(square);
     println!("The area of square is {}", area2);
-    
+
     let area3 = calc_area(rectangle_new);
     println!("The area of rectangle is {}", area3);
 
+    // Error Handling like try-catch in Javascript
+    let file_res = fs::read_to_string("example.txt");
+    match file_res {
+        Ok(file_content) => println!("File read successfully : {}", file_content),
+        Err(error) => println!("Failed to read file : {}", error),
+    }
+
+    // Option Enums
+    let word = String::from("Krishna");
+    match find_first_a(word) {
+        Some(index) => println!("The First a is Found at index {}", index),
+        None => println!("The a is not Found in the word"),
+    }
+
+    
 }
 
-    // Struct & Implementation
-    struct Rectangle {
-        width : u32,
-        height : u32,
-    }
+// Struct & Implementation
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
 
-    impl Rectangle {
-        fn area(&self) -> u32 {
-            self.width * self.height
-        }
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
     }
+}
 
-    // Enums & pattern matching
-    enum Shape {
-        Circle(f64),
-        Square(f64),
-        RectangleNew(f64, f64),
-    }
+// Enums & pattern matching
+enum Shape {
+    Circle(f64),
+    Square(f64),
+    RectangleNew(f64, f64),
+}
 
-fn calc_area(shape : Shape) -> f64 {
-    let ans = match shape{
+fn calc_area(shape: Shape) -> f64 {
+    let ans = match shape {
         Shape::Circle(radius) => 3.14 * radius * radius,
         Shape::Square(side) => side * side,
-        Shape::RectangleNew(width, height ) => width * height,
+        Shape::RectangleNew(width, height) => width * height,
     };
     return ans;
+}
+
+fn find_first_a(word: String) -> Option<i32> {
+    for (index, char) in word.chars().enumerate() {
+        if char.to_lowercase().any(|c| c == 'a') {
+            return Some(index as i32);
+        }
+    }
+    return None;
 }
 
 // Functions
